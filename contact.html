@@ -76,38 +76,34 @@ http://www.templatemo.com/tm-475-holiday
 					<div class="col-lg-4 col-md-3 col-sm-3"><hr></div>	
 				</div>				
 			</div>
+
 			<div class="row">
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-xxs-12">
-					<h5 class="tm-section-subtitle">订单编号</h5>
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table id="sample_2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>订单编号</th>
+										<th>下单人</th>
+										<th>收货人</th>
+										<th>联系方式</th>
+										<th>地址</th>
+										<th>金额</th>
+										<th>送货时间</th>
+										<th>婚礼时间</th>
+										<th>订单状态</th>
+										<th>下单时间</th>
+										<th>订单详情</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
 				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">收货人</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">联系方式</h5>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-xxs-12">
-					<h5 class="tm-section-subtitle">地址</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">金额</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">送货时间</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">婚礼时间</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">下单时间</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">订单状态</h5>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<h5 class="tm-section-subtitle">订单详情</h5>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12"><hr></div>
+			</div>
+
+			
 
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-xxs-12">
 					2016120800392165
@@ -197,6 +193,10 @@ http://www.templatemo.com/tm-475-holiday
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      		<!-- jQuery -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>					<!-- bootstrap js -->
 	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>			<!-- flexslider js -->
+
+	<script src="js2/jdt.js"></script>
+	<script src="js2/dtb.js"></script>
+	<script src="js/fnReloadAjax.js"></script>
 	<script type="text/javascript" src="js/templatemo-script.js"></script>      		<!-- Templatemo Script -->
 	<script>
       	// DOM is ready
@@ -220,6 +220,131 @@ http://www.templatemo.com/tm-475-holiday
 		  		directionNav: false
 		  	});
 		  });
+
+		// var storage = window.localStorage;
+		// 		var token = storage.token;
+		// 		if(token == undefined || token == "null") {
+		// 			location.href = "about.html";
+		// 		} else {
+		// 			$("#loginName").html(storage.name);
+		// 		}! function($) {
+		// 			$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+		// 				$(this).find('em:first').toggleClass("glyphicon-minus");
+		// 			});
+		// 			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		// 		}(window.jQuery);
+
+		// 		$(window).on('resize', function() {
+		// 			if($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		// 		})
+		// 		$(window).on('resize', function() {
+		// 			if($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		// 		})
+
+		// 		function logout() {
+		// 			storage.removeItem("token");
+		// 			storage.removeItem("name");
+		// 			location.href = "about.html";
+		// 		}
+
+			var TableManaged = function() {
+					return {
+						// main function to initiate the module
+						init: function() {
+							console.log(1111)
+							if(!jQuery().dataTable) {
+								return;
+							}
+
+							// var zsdz = "http://139.196.12.123:8080/order/myorder";
+							var zsdz = "http://localhost:8080/order/myorder";
+							$('#sample_2')
+								.dataTable({
+									// set the initial value
+									"ordering": false,
+									"oLanguage": {
+										"sLengthMenu": "每页显示 _MENU_ 条记录",
+										"sInfo": "共 _TOTAL_ 条数据",
+										"sZeroRecords": "抱歉， 没有找到(只搜公司名称哦)",
+										"sInfoEmpty": "没有数据",
+										"sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+										"sSearch": "搜索公司名称",
+										"sInfo": "当前 _START_ 到 _END_ /共_TOTAL_条数据 ",
+										"oPaginate": {
+											"sPrevious": "前页",
+											"sNext": "后页",
+										}
+									},
+									"bStateSave": true,
+									// "bProcessing" : true,
+									"bServerSide": true,
+									"sAjaxSource": zsdz,
+									"fnServerData": function(sSource,
+										aoData, fnCallback) {
+										$.ajax({
+											"dataType": 'json',
+											"type": "post",
+											"url": zsdz,
+											contentType: "application/json",
+											headers: {
+												"x-token": token
+											},
+											"data": {
+												aoData: JSON
+													.stringify(aoData)
+											},
+											"success": function(resp) {
+												fnCallback(resp);
+											},
+											"error": function(resp) {
+												if(resp.status == 500) {
+													alert("服务器异常");
+												} else {
+													logout();
+												}
+											}
+										});
+									},
+									"aoColumns": [{
+										"mData": "orderNum"
+									}, {
+										"mData": "shopperName"
+									}, {
+										"mData": "customer"
+									}, {
+										"mData": "contact"
+									}, {
+										"mData": "address"
+									}, {
+										"mData": "orderPrice"
+									}, {
+										"mData": "deliveryTime"
+									}, {
+										"mData": "weddingTime"
+									}, {
+										"mData": "status"
+									},{
+										"mData": "orderTime"
+									}, {
+										"mData": null
+									}],
+									"aoColumnDefs": [{
+										'bSortable': false,
+										'aTargets': [6],
+										"mRender": function(data,
+											type, full) {
+											return "<div><a href='#' style='cursor:pointer' onclick='delShopper(" + full.id + ")'>查看</a></div>";
+										}
+									}]
+								});
+						}
+
+					};
+
+				}();
+
+				TableManaged.init();
+
 	</script>
 </body>
 </html>
