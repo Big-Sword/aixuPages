@@ -39,7 +39,19 @@
 							<!-- <li><a href="about.html">About</a></li> -->
 							<li><a href="tours.html">产品中心</a></li>
 							<li><a href="contact.html">我的订单</a></li>
-							<li><a href="about.html">Login</a></li>
+							<!-- <li><a href="about.html">Login</a></li> -->
+
+
+						<li>
+							<a href="#" id="loginhref" ><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
+							<ul class="dropdown-menu" id="loginlogout">
+								<li>
+									<a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+								</li>
+							</ul>
+						</li>
+					
+
 						</ul>
 					</nav>		
 	  			</div>				
@@ -403,61 +415,41 @@
 		});
 		
 		// Load Flexslider when everything is loaded.
+		var storage = window.localStorage;
+		var token = storage.token;
+		var username = storage.name;
 		$(window).load(function() {	  		
-			// Vimeo API nonsense
+			console.log(token)
+			console.log(username)
+			if(token == undefined || token == "null") {
+					// location.href = "login.html";
+					$("#loginhref").attr("href", "about.html"); //这里设置链接地址
+		  			$("#loginhref").html("登录");  //这里设置显示的内容
 
-/*
-			  var player = document.getElementById('player_1');
-			  $f(player).addEvent('ready', ready);
-			 
-			  function addEvent(element, eventName, callback) {
-			    if (element.addEventListener) {
-			      element.addEventListener(eventName, callback, false)
-			    } else {
-			      element.attachEvent(eventName, callback, false);
-			    }
-			  }
-			 
-			  function ready(player_id) {
-			    var froogaloop = $f(player_id);
-			    froogaloop.addEvent('play', function(data) {
-			      $('.flexslider').flexslider("pause");
-			    });
-			    froogaloop.addEvent('pause', function(data) {
-			      $('.flexslider').flexslider("play");
-			    });
-			  }
-*/
-
-			 
-			 
-			  // Call fitVid before FlexSlider initializes, so the proper initial height can be retrieved.
-/*
-
-			  $(".flexslider")
-			    .fitVids()
-			    .flexslider({
-			      animation: "slide",
-			      useCSS: false,
-			      animationLoop: false,
-			      smoothHeight: true,
-			      controlNav: false,
-			      before: function(slider){
-			        $f(player).api('pause');
-			      }
-			  });
-*/
-
-
-			  
+		  			$("#loginlogout").hide();
+				} else {
+					//class="dropdown-toggle" data-toggle="dropdown"
+					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
+					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
+					$("#loginName").html(storage.name);
+				}! function($) {
+					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+						$(this).find('em:first').toggleClass("glyphicon-minus");
+					});
+					$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+			}(window.jQuery);
 
 //	For images only
 		    $('.flexslider').flexslider({
 			    controlNav: false
 		    });
-
-
 	  	});
+
+	  	function logout() {
+			storage.removeItem("token");
+			storage.removeItem("name");
+			location.href = "index.html";
+		}
 	</script>
  </body>
  </html>
