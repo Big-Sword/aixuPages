@@ -101,7 +101,7 @@ http://www.templatemo.com/tm-475-holiday
 										<th>婚礼时间</th>
 										<th>订单状态</th>
 										<th>下单时间</th>
-										<th>订单详情</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 							</table>
@@ -113,12 +113,12 @@ http://www.templatemo.com/tm-475-holiday
 			
 
 				
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					<!-- <a href="" class="tm-banner-link">订单详情</a> -->
+				<!-- <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
+					
 					<button type="button" class="tm-yellow-table-btn" data-toggle="modal" data-target="#myModal">
   						查看
 					</button>
-				</div>
+				</div> -->
 
 
 				<!-- Modal -->
@@ -335,7 +335,12 @@ http://www.templatemo.com/tm-475-holiday
 										'aTargets': [10],
 										"mRender": function(data,
 											type, full) {
-											return "<div><a href='#' style='cursor:pointer' onclick='showOrderDetail(" + full.id + ",\"" + full.order_num +"\")'>查看</a></div>";
+											var status = full.status;
+											if (status == 0) {
+												return "<div><a href='#' style='cursor:pointer' onclick='showOrderDetail(" + full.id + ",\"" + full.order_num +"\")'>查看</a>&nbsp;&nbsp;&nbsp;<a href='#' style='cursor:pointer' onclick='cancelOrder(" + full.id + ")'>取消订单</a></div>";
+											}else{
+												return "<div><a href='#' style='cursor:pointer' onclick='showOrderDetail(" + full.id + ",\"" + full.order_num +"\")'>查看</a></div>";
+											};
 										}
 									}]
 								});
@@ -347,9 +352,38 @@ http://www.templatemo.com/tm-475-holiday
 
 				TableManaged.init();
 
+				function cancelOrder(id) {
+					if(confirm("确定要取消这个订单么")) {
+						$.ajax({
+							contentType: "application/json",
+							headers: {
+								"x-token": token
+							},
+	                		type: "post",
+	               		 	dataType: "json",
+	              		 	url: baseUrl + "order/ordercancel/"+id,
+	              		  	success: function(data) {
+	              		      if(data.code == 200) {
+									alert("取消成功");
+									$('#sample_2').dataTable().fnReloadAjax();
+								} else {
+									alert(data.msg);
+								}
+	               		 },
+	               		 "error": function(resp) {
+								if(resp.status == 500) {
+									alert("服务器异常");
+								} else {
+									//location.href = "about.html";
+								}
+							}
+	            		});
+					}
+				}
+
 				function showOrderDetail(id,order_num) {
 					$('#myModal').modal('show');
-					$("#myModalLabel").html(order_num); 
+					$("#myModalLabel").html("订单号:" + order_num); 
 					$("#sample_3  tr:not(:first)").html("");
 
 					$.ajax({
