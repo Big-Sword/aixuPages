@@ -15,7 +15,7 @@ http://www.templatemo.com/tm-475-holiday
   <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet"> 
   <link href="css/flexslider.css" rel="stylesheet"> 
   <link href="css/templatemo-style.css" rel="stylesheet">
-  
+  <link href="css2/jquery.datetimepicker.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +44,13 @@ http://www.templatemo.com/tm-475-holiday
 							<!-- <li><a href="about.html">About</a></li> -->
 							<li><a href="tours.html" class="active">产品中心</a></li>
 							<li><a href="contact.html">我的订单</a></li>
-							<li><a href="about.html">XXX你好</a></li>
+							<li>
+							<a href="#" id="loginhref" ><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
+							<ul class="dropdown-menu" id="loginlogout">
+								<li>
+									<a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+								</li>
+							</ul>
 						</ul>
 					</nav>		
 	  			</div>				
@@ -138,9 +144,9 @@ http://www.templatemo.com/tm-475-holiday
 						<div class='panel-body'>
 					         <p>
 					           <div align="right">
-                 	           <span>婚礼时间:<input class="date" id="weddingTime"></span>
-                 	           <span>送货时间:<input class="date" id="deliveryTime"></span>
-                 	           <span><button type="button" id="createOrder" class="btn btn-primary">
+                 	           <span>婚礼时间:<input type="text" class="testS" id="weddingTime" onclick="fullDate('weddingTime')"></span>
+                 	           <span>送货时间:<input type="text" class="testS" id="deliveryTime" onclick="fullDate('deliveryTime')"></span>
+                 	           <span><button type="button" onclick="createOrder()"  id = "createOrder" class="btn btn-primary">
                                     下单
                                </button></span>
                                </div>
@@ -150,6 +156,8 @@ http://www.templatemo.com/tm-475-holiday
 				 </div>
 		     </div>
 	       </div>
+
+        
 		</div>
 		 	    
 	</section>
@@ -160,10 +168,16 @@ http://www.templatemo.com/tm-475-holiday
 
 	<script src="js2/jdt.js"></script>
 	<script src="js2/dtb.js"></script>
+	<script src="js2/jquery.datetimepicker.full.js"></script>
 	<script src="js/fnReloadAjax.js"></script>
 	<script type="text/javascript" src="js/templatemo-script.js"></script>   
 	<script>
 		// HTML document is loaded. DOM is ready.
+		var baseUrl = "http://139.196.12.123:8080/";
+		var storage = window.localStorage;
+		var token = storage.token;
+		var username = storage.name;
+
 		$(function() {
 		
 			// https://css-tricks.com/snippets/jquery/smooth-scrolling/
@@ -178,7 +192,8 @@ http://www.templatemo.com/tm-475-holiday
 			        return false;
 			      }
 			    }
-		  	});		  	  
+		  	});	
+		  	 
 		});
         function minProduct(id) {
         	       var input = $("#"+id).next();
@@ -211,42 +226,125 @@ http://www.templatemo.com/tm-475-holiday
                	      var minId = "min"+id;
                	      var increaseId = "increase"+id;
                	      if(doc.length == 0) {
-               	          var newRow = "<tr id='"+id+"''><td>"+name+"</td><td><div align='center'><button id='"+minId+"' type='button' onclick='minProduct(\""+minId+"\")' class=' btn btn-default'>-</button> <input style='text-align:right'class='sy_num' size = '5' type='text' value='1' />&nbsp;<button type='button' id='"+increaseId+"' onclick='increaseProduct(\""+increaseId+"\")' class='btn btn-default'>+</button></div></td></tr>";
+               	          var newRow = "<tr id='"+id+"''><td>"+name+"</td><td><div align='center'><button id='"+minId+"' type='button' onclick='minProduct(\""+minId+"\")' class=' btn btn-default'>-</button> <input style='text-align:right' class='sy_num' size = '5' type='text' value='1' />&nbsp;<button type='button' id='"+increaseId+"' onclick='increaseProduct(\""+increaseId+"\")' class='btn btn-default'>+</button></div></td></tr>";
                	           $("#sample_3 tr:last").after(newRow);
                	      }
 
 		 }
+		 function logout() {
+			storage.removeItem("token");
+			storage.removeItem("name");
+			location.href = "index.html";
+		}
+		 function DateToUnix(string) {
+		 	var f = string.split(' ', 2);
+								var d = (f[0] ? f[0] : '').split('-', 3);
+								var t = (f[1] ? f[1] : '').split(':', 3);
+								return(new Date(
+									parseInt(d[0], 10) || null,
+									(parseInt(d[1], 10) || 1) - 1,
+									parseInt(d[2], 10) || null,
+									parseInt(t[0], 10) || null,
+									parseInt(t[1], 10) || null,
+									parseInt(t[2], 10) || null
+								)).getTime() / 1000;
+		 }
+		 function createOrder(){
+                if(confirm("确定要下单吗？")) {
+                     var size = $("#sample_3").find("tr").length;
+                     if(size <=1) {
+                     	alert("您还没有购买商品");
+                     }else {
+					     $("#createOrder").attr("disabled", true);
+					     var list = [];//数组
+                         for(var i = 1;i<size;i++) {
+                         	var productId = $("#sample_3 tr:eq('"+i+"')").attr("id");
+                         	var productNum = $("#sample_3 tr:eq('"+i+"')").find(".sy_num").val();
+                         	var weddingTime = DateToUnix($("#weddingTime").val());
+                         	var deliveryTime = DateToUnix($("#deliveryTime").val());
+                         	
+                         	if(isNaN(productNum)) {
+                         		alert("数量输入框只能是数字");
+                                $("#createOrder").attr("disabled", false);
+                         		return;
+                         	}
+                         	if(weddingTime == undefined || weddingTime =="") {
+                         		alert("婚礼时间不能为空");
+                         		$("#createOrder").attr("disabled", false);
+                         		$("#weddingTime").focus();
+
+                         		return;
+                         	}
+                         	if(deliveryTime == undefined || deliveryTime =="") {
+                         		alert("婚礼时间不能为空");
+                         		$("#createOrder").attr("disabled", false);
+                         		$("#deliveryTime").focus();
+                         		return;
+                         	}
+                         	
+                                list[i-1] = {"productId":parseInt(productId),"productNum":parseInt(productNum)};
+                         	
+                         }
+              
+
+					    $.ajax({
+						
+							type: "post",
+							url: baseUrl+"order/ordering",
+							async: false,
+							contentType: "application/json",
+							headers: {
+								"x-token": token
+							},
+							data: JSON.stringify({"orderDetailItems":list,"weddingTime":weddingTime,"deliveryTime":deliveryTime}),
+							success: function(data) {
+								if(data.code == 200) {
+									alert("下单成功");
+									$("#sample_3").find("tr[id]").remove();	
+									$("#weddingTime").val("");
+									$("#deliveryTime").val("");
+								} else {
+									alert(data.msg);
+								}
+							},
+							error: function(resp) {
+								if(resp.status == 500) {
+									alert("服务器异常");
+								} else {
+									location.href = "about.html";
+								}
+							}
+						});
+						$("#createOrder").attr("disabled", false);
+					 }
+                }
+		 }
+
+		
 		// Load Flexslider when everything is loaded.
 		$(window).load(function() {	  		
 		    $('.flexslider').flexslider({
 			    controlNav: false
 		    });
-         //token
-        // var storage = window.localStorage;
-		// 		var token = storage.token;
-		// 		if(token == undefined || token == "null") {
-		// 			location.href = "about.html";
-		// 		} else {
-		// 			$("#loginName").html(storage.name);
-		// 		}! function($) {
-		// 			$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
-		// 				$(this).find('em:first').toggleClass("glyphicon-minus");
-		// 			});
-		// 			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		// 		}(window.jQuery);
+            console.log(token)
+			console.log(username)
+			if(token == undefined || token == "null") {
+					// location.href = "login.html";
+					$("#loginhref").attr("href", "about.html"); //这里设置链接地址
+		  			$("#loginhref").html("登录");  //这里设置显示的内容
 
-		// 		$(window).on('resize', function() {
-		// 			if($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		// 		})
-		// 		$(window).on('resize', function() {
-		// 			if($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		// 		})
-
-		// 		function logout() {
-		// 			storage.removeItem("token");
-		// 			storage.removeItem("name");
-		// 			location.href = "about.html";
-		// 		}
+		  			$("#loginlogout").hide();
+				} else {
+					//class="dropdown-toggle" data-toggle="dropdown"
+					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
+					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
+					$("#loginName").html(storage.name);
+				}! function($) {
+					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+						$(this).find('em:first').toggleClass("glyphicon-minus");
+					});
+					$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+			}(window.jQuery);
 
             var TableManaged = function() {
 					return {
@@ -257,8 +355,6 @@ http://www.templatemo.com/tm-475-holiday
 								return;
 							}
 
-							// var zsdz = "http://139.196.12.123:8080/order/myorder";
-							var zsdz = "http://localhost:8080/product/all";
 							$('#sample_2')
 								.dataTable({
 									// set the initial value
@@ -279,17 +375,17 @@ http://www.templatemo.com/tm-475-holiday
 									"bStateSave": true,
 									// "bProcessing" : true,
 									"bServerSide": true,
-									"sAjaxSource": zsdz,
+									"sAjaxSource": baseUrl+"product/all",
 									"fnServerData": function(sSource,
 										aoData, fnCallback) {
 										$.ajax({
 											"dataType": 'json',
 											"type": "post",
-											"url": zsdz,
+											"url": baseUrl+"product/all",
 											contentType: "application/json",
-											// headers: {
-											// 	"x-token": token
-											// },
+											headers: {
+												"x-token": token
+											},
 											"data": {
 												aoData: JSON
 													.stringify(aoData)
@@ -301,7 +397,7 @@ http://www.templatemo.com/tm-475-holiday
 												if(resp.status == 500) {
 													alert("服务器异常");
 												} else {
-													logout();
+													location.href = "about.html";
 												}
 											}
 										});
@@ -358,6 +454,23 @@ http://www.templatemo.com/tm-475-holiday
               
 	  	}); 
 
+            var logic = function(currentDateTime) {
+					if(currentDateTime && currentDateTime.getDay() == 6) {
+						this.setOptions({
+							minTime: '11:00'
+						});
+					} else
+						this.setOptions({
+							minTime: '8:00'
+						});
+				}
+            $.datetimepicker.setLocale('ch'); //设置中文
+			function fullDate(id) {}
+				$('.testS').datetimepicker({
+					onChangeDateTime: logic,
+					onShow: logic
+				});
+				
               
 	</script>
  </body>
