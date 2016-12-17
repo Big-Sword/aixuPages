@@ -41,7 +41,14 @@ http://www.templatemo.com/tm-475-holiday
 							<li><a href="index.html">首页</a></li>
 							<li><a href="tours.html">产品中心</a></li>
 							<li><a href="contact.html" class="active">我的订单</a></li>
-							<li><a href="about.html">XXX你好</a></li>
+							<li>
+							<a href="#" id="loginhref" ><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
+							<ul class="dropdown-menu" id="loginlogout">
+								<li>
+									<a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+								</li>
+							</ul>
+							</li>
 						</ul>
 					</nav>		
 				</div>				
@@ -105,33 +112,7 @@ http://www.templatemo.com/tm-475-holiday
 
 			
 
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-xxs-12">
-					2016120800392165
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					eeee
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					155555555
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-xxs-12">
-					上海
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					320.55
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					1970-01-18 04:00:22
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					1970-01-18 04:00:22
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					2016-12-08 00:39:21
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
-					成功
-				</div>
+				
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-xxs-12">
 					<!-- <a href="" class="tm-banner-link">订单详情</a> -->
 					<button type="button" class="tm-yellow-table-btn" data-toggle="modal" data-target="#myModal">
@@ -149,35 +130,34 @@ http://www.templatemo.com/tm-475-holiday
  				       <h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				      </div>
 				      <div class="modal-body">
- 				       ...
+ 				       	<div class="row">
+							<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table id="sample_3" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>商品名称</th>
+												<th>型号</th>
+												<th>色号</th>
+												<th>内容</th>
+												<th>商品单价</th>
+												<th>购买数量</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 				      </div>
  				     <div class="modal-footer">
- 				      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+ 				      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
  				     </div>
 				    </div>
 				  </div>
 				</div>
-				<!-- contact form -->
-				<!-- <form action="#" method="post" class="tm-contact-form">
 				
-					<div class="col-lg-12 col-md-12 tm-contact-form-input">
-						<div class="form-group">
-							<input type="text" id="contact_name" class="form-control" placeholder="NAME" />
-						</div>
-						<div class="form-group">
-							<input type="email" id="contact_email" class="form-control" placeholder="EMAIL" />
-						</div>
-						<div class="form-group">
-							<input type="text" id="contact_subject" class="form-control" placeholder="SUBJECT" />
-						</div>
-						<div class="form-group">
-							<textarea id="contact_message" class="form-control" rows="6" placeholder="MESSAGE"></textarea>
-						</div>
-						<div class="form-group">
-							<button class="tm-submit-btn" type="submit" name="submit">Submit now</button> 
-						</div>               
-					</div>
-				</form> -->
 			</div>			
 		</div>
 	</section>
@@ -194,11 +174,17 @@ http://www.templatemo.com/tm-475-holiday
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>					<!-- bootstrap js -->
 	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>			<!-- flexslider js -->
 
+	<script src="js2/jquery.datetimepicker.full.js"></script>
 	<script src="js2/jdt.js"></script>
 	<script src="js2/dtb.js"></script>
 	<script src="js/fnReloadAjax.js"></script>
 	<script type="text/javascript" src="js/templatemo-script.js"></script>      		<!-- Templatemo Script -->
 	<script>
+	var baseUrl = "http://localhost:8080/";
+	// var baseUrl = "http://139.196.12.123:8080/";
+		var storage = window.localStorage;
+		var token = storage.token;
+		var username = storage.name;
       	// DOM is ready
 		$(function() {
 			// https://css-tricks.com/snippets/jquery/smooth-scrolling/
@@ -221,32 +207,6 @@ http://www.templatemo.com/tm-475-holiday
 		  	});
 		  });
 
-		// var storage = window.localStorage;
-		// 		var token = storage.token;
-		// 		if(token == undefined || token == "null") {
-		// 			location.href = "about.html";
-		// 		} else {
-		// 			$("#loginName").html(storage.name);
-		// 		}! function($) {
-		// 			$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
-		// 				$(this).find('em:first').toggleClass("glyphicon-minus");
-		// 			});
-		// 			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		// 		}(window.jQuery);
-
-		// 		$(window).on('resize', function() {
-		// 			if($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		// 		})
-		// 		$(window).on('resize', function() {
-		// 			if($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		// 		})
-
-		// 		function logout() {
-		// 			storage.removeItem("token");
-		// 			storage.removeItem("name");
-		// 			location.href = "about.html";
-		// 		}
-
 			var TableManaged = function() {
 					return {
 						// main function to initiate the module
@@ -255,9 +215,7 @@ http://www.templatemo.com/tm-475-holiday
 							if(!jQuery().dataTable) {
 								return;
 							}
-
-							// var zsdz = "http://139.196.12.123:8080/order/myorder";
-							var zsdz = "http://localhost:8080/order/myorder";
+							var zsdz = baseUrl + "/order/myorder";
 							$('#sample_2')
 								.dataTable({
 									// set the initial value
@@ -300,15 +258,16 @@ http://www.templatemo.com/tm-475-holiday
 												if(resp.status == 500) {
 													alert("服务器异常");
 												} else {
-													logout();
+													location.href = "about.html";
+													// logout();
 												}
 											}
 										});
 									},
 									"aoColumns": [{
-										"mData": "orderNum"
+										"mData": "order_num"
 									}, {
-										"mData": "shopperName"
+										"mData": "shopper_name"
 									}, {
 										"mData": "customer"
 									}, {
@@ -316,24 +275,67 @@ http://www.templatemo.com/tm-475-holiday
 									}, {
 										"mData": "address"
 									}, {
-										"mData": "orderPrice"
+										"mData": "order_price"
 									}, {
-										"mData": "deliveryTime"
+										"mData": "delivery_time"
 									}, {
-										"mData": "weddingTime"
+										"mData": "wedding_time"
 									}, {
-										"mData": "status"
+										"mData": null
 									},{
-										"mData": "orderTime"
+										"mData": "order_time"
 									}, {
 										"mData": null
 									}],
 									"aoColumnDefs": [{
-										'bSortable': false,
+										'bSortable': true,
 										'aTargets': [6],
 										"mRender": function(data,
 											type, full) {
-											return "<div><a href='#' style='cursor:pointer' onclick='delShopper(" + full.id + ")'>查看</a></div>";
+											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+										}
+										},{
+										'bSortable': true,
+										'aTargets': [7],
+										"mRender": function(data,
+											type, full) {
+											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+										}
+										},{
+										'bSortable': true,
+										'aTargets': [9],
+										"mRender": function(data,
+											type, full) {
+											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+										}
+										},{
+										'bSortable': true,
+										'aTargets': [8],
+										"mRender": function(data,
+											type, full) {
+											var status = full.status;
+											var html;
+											if(status == 0) {
+												html = "待确认";
+											} else if(status == 1) {
+												html = "已确认";
+											} else if(status == 2) {
+												html = "已送货";
+											} else if(status == 3) {
+												html = "已完成";
+											} else if(status == 4) {
+												html = "已取消";
+											} else {
+												html = "未知";
+											}
+											return html;
+										}
+										},{
+										'bSortable': false,
+										'aTargets': [10],
+										"mRender": function(data,
+											type, full) {
+											return "<div><a href='#' style='cursor:pointer' onclick='showOrderDetail(" + full.id + ",\"" + full.order_num +"\")'>查看</a></div>";
 										}
 									}]
 								});
@@ -345,6 +347,134 @@ http://www.templatemo.com/tm-475-holiday
 
 				TableManaged.init();
 
+				function showOrderDetail(id,order_num) {
+					$('#myModal').modal('show');
+					$("#myModalLabel").html(order_num); 
+					$("#sample_3  tr:not(:first)").html("");
+
+					$.ajax({
+						contentType: "application/json",
+						headers: {
+							"x-token": token
+						},
+                		type: "post",
+               		 	dataType: "json",
+              		 	url: baseUrl + "order/orderdetail/"+id,
+              		  	success: function(json) {
+              		      var typeData = json.data;
+              		      if (json.code == 200) {
+	              		      	$.each(typeData, function(i, n) {
+	                 		      var tbBody = ""
+	                     	   	tbBody += "<tr><td>" + n.name + "</td>" 
+	                     	   	+ "<td>" + n.modelType + "</td>"
+	                     	   	+ "<td>" + n.colourType + "</td>" 
+	                     	   	+ "<td>" + n.content + "</td>" 
+	                     	   	+ "<td>" + n.price + "</td>"  
+	                     	   	+ "<td>" + n.productCount + "</td></tr>";
+	                      	  $("#sample_3").append(tbBody);
+	                   		 });
+              		      }else {
+								// alert(json.msg);
+								// $('#myModal').modal('hidden');
+						  }
+               		 },
+               		 "error": function(resp) {
+							if(resp.status == 500) {
+								alert("服务器异常");
+							} else {
+								//location.href = "about.html";
+							}
+						}
+            		});
+				}
+
+		// Load Flexslider when everything is loaded.
+		$(window).load(function() {	  		
+			console.log(token)
+			console.log(username)
+			if(token == undefined || token == "null") {
+					// location.href = "login.html";
+					$("#loginhref").attr("href", "about.html"); //这里设置链接地址
+		  			$("#loginhref").html("登录");  //这里设置显示的内容
+
+		  			$("#loginlogout").hide();
+				} else {
+					//class="dropdown-toggle" data-toggle="dropdown"
+					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
+					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
+					$("#loginName").html(storage.name);
+				}! function($) {
+					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+						$(this).find('em:first').toggleClass("glyphicon-minus");
+					});
+					$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+			}(window.jQuery);
+
+//	For images only
+		    $('.flexslider').flexslider({
+			    controlNav: false
+		    });
+	  	});
+
+	  	function logout() {
+			storage.removeItem("token");
+			storage.removeItem("name");
+			location.href = "index.html";
+		}
+
+		(function($) {
+					$.extend({
+						myTime: {
+							/**
+							 * 当前时间戳
+							 * @return <int>    unix时间戳(秒) 
+							 */
+							CurTime: function() {
+								return Date.parse(new Date()) / 1000;
+							},
+							/**       
+							 * 日期 转换为 Unix时间戳
+							 * @param <string> 2014-01-01 20:20:20 日期格式       
+							 * @return <int>    unix时间戳(秒)       
+							 */
+							DateToUnix: function(string) {
+								var f = string.split(' ', 2);
+								var d = (f[0] ? f[0] : '').split('-', 3);
+								var t = (f[1] ? f[1] : '').split(':', 3);
+								return(new Date(
+									parseInt(d[0], 10) || null,
+									(parseInt(d[1], 10) || 1) - 1,
+									parseInt(d[2], 10) || null,
+									parseInt(t[0], 10) || null,
+									parseInt(t[1], 10) || null,
+									parseInt(t[2], 10) || null
+								)).getTime() / 1000;
+							},
+							/**       
+							 * 时间戳转换日期       
+							 * @param <int> unixTime  待时间戳(秒)       
+							 * @param <bool> isFull  返回完整时间(Y-m-d 或者 Y-m-d H:i:s)       
+							 * @param <int> timeZone  时区       
+							 */
+							UnixToDate: function(unixTime, isFull, timeZone) {
+								if(typeof(timeZone) == 'number') {
+									unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+								}
+								var time = new Date(unixTime * 1000);
+								var ymdhis = "";
+								ymdhis += time.getUTCFullYear() + "-";
+								ymdhis += (time.getUTCMonth() + 1) + "-";
+								ymdhis += time.getUTCDate();
+								if(isFull === true) {
+									ymdhis += " " + time.getUTCHours() + ":";
+									ymdhis += time.getUTCMinutes() + ":";
+									ymdhis += time.getUTCSeconds();
+								}
+								return ymdhis;
+							}
+						}
+					});
+				})(jQuery);
 	</script>
 </body>
 </html>
