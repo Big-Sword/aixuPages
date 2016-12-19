@@ -174,10 +174,10 @@ http://www.templatemo.com/tm-475-holiday
 	<script type="text/javascript" src="js/templatemo-script.js"></script>   
 	<script>
 		// HTML document is loaded. DOM is ready.
-		var baseUrl = "http://139.196.12.123:8080/";
+		var baseUrl = "http://localhost:8080/";
 		var storage = window.localStorage;
-		var token = storage.token;
-		var username = storage.name;
+		var token = storage.shopperToken;
+		var username = storage.shopperName;
 
 		$(function() {
 		
@@ -233,8 +233,8 @@ http://www.templatemo.com/tm-475-holiday
 
 		 }
 		 function logout() {
-			storage.removeItem("token");
-			storage.removeItem("name");
+			storage.removeItem("shopperToken");
+			storage.removeItem("shopperName");
 			location.href = "index.html";
 		}
 		 function DateToUnix(string) {
@@ -295,7 +295,8 @@ http://www.templatemo.com/tm-475-holiday
 							async: false,
 							contentType: "application/json",
 							headers: {
-								"x-token": token
+								"x-token": token,
+								"type":1
 							},
 							data: JSON.stringify({"orderDetailItems":list,"weddingTime":weddingTime,"deliveryTime":deliveryTime}),
 							success: function(data) {
@@ -339,7 +340,7 @@ http://www.templatemo.com/tm-475-holiday
 					//class="dropdown-toggle" data-toggle="dropdown"
 					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
 					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
-					$("#loginName").html(storage.name);
+					$("#loginName").html(storage.shopperName);
 				}! function($) {
 					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
 						$(this).find('em:first').toggleClass("glyphicon-minus");
@@ -385,7 +386,8 @@ http://www.templatemo.com/tm-475-holiday
 											"url": baseUrl+"product/all",
 											contentType: "application/json",
 											headers: {
-												"x-token": token
+												"x-token": token,
+												"type":1
 											},
 											"data": {
 												aoData: JSON
@@ -398,7 +400,7 @@ http://www.templatemo.com/tm-475-holiday
 												if(resp.status == 500) {
 													alert("服务器异常");
 												} else {
-													location.href = "about.html";
+													 location.href = "about.html";
 												}
 											}
 										});
@@ -435,7 +437,7 @@ http://www.templatemo.com/tm-475-holiday
 											var html = "";
 											for(var i = 0; i < picUrls.length; i++) {
 												html += "<a href=\"productImg/" + picUrls[i] + "\" target=\"_blank\"><img src=\"productImg/" + picUrls[i] + "\"  width='40' height='40'/></a>&nbsp;&nbsp;";
-												
+												// html += "<a href=\"/Users/longie/custom-lr.png" + "custom-lr.png" + "\" target=\"_blank\"><img src=\"/Users/longie/" + "custom-lr.png" + "\"  width='40' height='40'/></a>&nbsp;&nbsp;";
 											}
 											return "<div>" + html + "</div>";
 										}

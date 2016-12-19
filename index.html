@@ -416,8 +416,8 @@
 		
 		// Load Flexslider when everything is loaded.
 		var storage = window.localStorage;
-		var token = storage.token;
-		var username = storage.name;
+		var token = storage.shopperToken;
+		var username = storage.shopperName;
 		$(window).load(function() {	  		
 			console.log(token)
 			console.log(username)
@@ -431,7 +431,7 @@
 					//class="dropdown-toggle" data-toggle="dropdown"
 					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
 					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
-					$("#loginName").html(storage.name);
+					$("#loginName").html(storage.shopperName);
 				}! function($) {
 					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
 						$(this).find('em:first').toggleClass("glyphicon-minus");
@@ -446,8 +446,8 @@
 	  	});
 
 	  	function logout() {
-			storage.removeItem("token");
-			storage.removeItem("name");
+			storage.removeItem("shopperToken");
+			storage.removeItem("shopperName");
 			location.href = "index.html";
 		}
 	</script>

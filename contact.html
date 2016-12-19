@@ -183,8 +183,8 @@ http://www.templatemo.com/tm-475-holiday
 	var baseUrl = "http://localhost:8080/";
 	// var baseUrl = "http://139.196.12.123:8080/";
 		var storage = window.localStorage;
-		var token = storage.token;
-		var username = storage.name;
+		var token = storage.shopperToken;
+		var username = storage.shopperName;
       	// DOM is ready
 		$(function() {
 			// https://css-tricks.com/snippets/jquery/smooth-scrolling/
@@ -245,7 +245,8 @@ http://www.templatemo.com/tm-475-holiday
 											"url": zsdz,
 											contentType: "application/json",
 											headers: {
-												"x-token": token
+												"x-token": token,
+												"type":1
 											},
 											"data": {
 												aoData: JSON
@@ -357,7 +358,8 @@ http://www.templatemo.com/tm-475-holiday
 						$.ajax({
 							contentType: "application/json",
 							headers: {
-								"x-token": token
+								"x-token": token,
+								"type":1
 							},
 	                		type: "post",
 	               		 	dataType: "json",
@@ -389,7 +391,8 @@ http://www.templatemo.com/tm-475-holiday
 					$.ajax({
 						contentType: "application/json",
 						headers: {
-							"x-token": token
+							"x-token": token,
+							"type":1
 						},
                 		type: "post",
                		 	dataType: "json",
@@ -436,7 +439,7 @@ http://www.templatemo.com/tm-475-holiday
 					//class="dropdown-toggle" data-toggle="dropdown"
 					$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
 					$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
-					$("#loginName").html(storage.name);
+					$("#loginName").html(storage.shopperName);
 				}! function($) {
 					$(document).on("click", "ul.nav li.parent > a > span.icon", function() {
 						$(this).find('em:first').toggleClass("glyphicon-minus");
@@ -451,8 +454,8 @@ http://www.templatemo.com/tm-475-holiday
 	  	});
 
 	  	function logout() {
-			storage.removeItem("token");
-			storage.removeItem("name");
+			storage.removeItem("shopperToken");
+			storage.removeItem("shopperName");
 			location.href = "index.html";
 		}
 

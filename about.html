@@ -9,7 +9,7 @@
 Holiday Template
 http://www.templatemo.com/tm-475-holiday
 -->
-  <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+  <!-- <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'> -->
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
@@ -161,7 +161,7 @@ http://www.templatemo.com/tm-475-holiday
 		});
 
 		var storage = window.localStorage;
-			var token = storage.token;
+			var token = storage.shopperToken;
 			// if(token != undefined && token != "null") {
 			// 	location.href = "about.html";
 			// }
@@ -191,8 +191,8 @@ http://www.templatemo.com/tm-475-holiday
 					}),
 					success: function(data) {
 						if(data.code == 200 && data.data.token != null) {
-							storage.token = data.data.token;
-							storage.name = data.data.loginName;
+							storage.shopperToken = data.data.token;
+							storage.shopperName = data.data.loginName;
 							location.href = "index.html";
 						} else {
 							alert("用户名或者密码不正确");
