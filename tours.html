@@ -24,7 +24,6 @@ http://www.templatemo.com/tm-475-holiday
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</style>
 </head>
   <body class="tm-gray-bg">
   	<!-- Header -->
@@ -143,21 +142,118 @@ http://www.templatemo.com/tm-475-holiday
 							</table>
 						</div>
 						<div class='panel-body'>
-					         <p>
-					           <div align="right">
-                 	           <span>婚礼时间:<input type="text" class="testS" id="weddingTime" onclick="fullDate('weddingTime')"></span>
-                 	           <span>送货时间:<input type="text" class="testS" id="deliveryTime" onclick="fullDate('deliveryTime')"></span>
-                 	           <span><button type="button" onclick="createOrder()"  id = "createOrder" class="btn btn-primary">
-                                    下单
-                               </button></span>
-                               </div>
-                             </p>
-			
-						</div>
-				 </div>
-		     </div>
-	       </div>
+							<table width="100%">
+								<tr>
+                                  <td>
+					           	   <label class="control-label" for="weddingTime">婚礼时间</label>
+					           	   <div >
+                 	               <input type="text" class="testS form-control" name = "weddingTime" id="weddingTime" onclick="fullDate('weddingTime')">
+                 	               </div>
+                 	               </td>
+                 	            <td>
+                 	           	 <label class="control-label" for="deliveryTime">送货时间</label>
+					           	 <div class ="">
+                 	               <input type="text" class="testS form-control" name = "deliveryTime" id="deliveryTime" onclick="fullDate('deliveryTime')">
+                 	             </div>
+                 	         </td>
+					           	   <label class=" control-label" for="address">地址</label>
+					           	   <div >
+                 	               <input type="text" class="form-control" name = "address" id="address">
+                 	               </div>
+                 	          </td>
+                         </tr>
+                         <tr>
+                             <td>  	 
+					           	   <label class="control-label" for="contact">联系方式</label>
+					           	   <div>
+                 	               <input type="text" class="form-control" name = "contact" id="contact">
+                 	              </div>
+                 	         
+                            </td>
+                            <td> 
+					           	   <label class=" control-label" for="customer">收货人</label>
+					           	   <div >
+                 	               <input type="text" class="form-control" name = "customer" id="customer">
+                 	              </div>
+                 	      
+                 	          </td>
+                 	          <td>
+										<div class=" widget-right">
+											<button type="button" onclick="createOrder()"  id = "createOrder" class="btn btn-primary btn-md pull-right">下单</button>
+										</div>
+							
+							   </td>
 
+                           
+									
+					        
+						</tr>
+					</table>
+						 </div>
+
+			   </div>
+				    
+		     </div>
+		   
+	       </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  				<div class="modal-dialog" style="width:800px">
+  				  <div class="modal-content">
+   				   <div class="modal-header">
+  				      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+ 				       <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				      </div>
+				      <div class="modal-body">
+ 				       	<div class="row">
+							<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table id="sample_4" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>订单号</th>
+												<th>收货人</th>
+												<th>联系方式</th>
+												<th>收货地址</th>
+												<th>婚礼时间</th>
+												<th>送货时间</th>
+												<th>购买者</th>
+												<th>商品总价</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table id="sample_5" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>商品名称</th>
+												<th>型号</th>
+												<th>色号</th>
+												<th>内容</th>
+												<th>商品单价</th>
+												<th>购买数量</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+
+					  </div>
+				      </div>
+ 				     <div class="modal-footer">
+ 				      <button type="button" class="btn btn-default" data-dismiss="modal" >取消下单</button>
+ 				      <button type="button" class="btn btn-default" onclick="createConfirmOrder()">确定下单</button>
+ 				     </div>
+				    </div>
+				  </div>
+				</div>
         
 		</div>
 		 	    
@@ -178,6 +274,7 @@ http://www.templatemo.com/tm-475-holiday
 		var storage = window.localStorage;
 		var token = storage.shopperToken;
 		var username = storage.shopperName;
+		var orderId;
 
 		$(function() {
 		
@@ -239,7 +336,7 @@ http://www.templatemo.com/tm-475-holiday
 		}
 		 function DateToUnix(string) {
 		 	var f = string.split(' ', 2);
-								var d = (f[0] ? f[0] : '').split('-', 3);
+								var d = (f[0] ? f[0] : '').split('/', 3);
 								var t = (f[1] ? f[1] : '').split(':', 3);
 								return(new Date(
 									parseInt(d[0], 10) || null,
@@ -248,13 +345,66 @@ http://www.templatemo.com/tm-475-holiday
 									parseInt(t[0], 10) || null,
 									parseInt(t[1], 10) || null,
 									parseInt(t[2], 10) || null
-								)).getTime() / 1000;
+								)).getTime();
+		 }
+		 function UnixToDate (unixTime, isFull, timeZone) {
+								if(typeof(timeZone) == 'number') {
+									unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+								}
+								var time = new Date(unixTime * 1000);
+								var ymdhis = "";
+								ymdhis += time.getUTCFullYear() + "-";
+								ymdhis += (time.getUTCMonth() + 1) + "-";
+								ymdhis += time.getUTCDate();
+								if(isFull === true) {
+									ymdhis += " " + time.getUTCHours() + ":";
+									ymdhis += time.getUTCMinutes() + ":";
+									ymdhis += time.getUTCSeconds();
+								}
+								return ymdhis;
+		 }
+		 function createConfirmOrder() {
+		 	      $.ajax({
+							contentType: "application/json",
+							headers: {
+								"x-token": token,
+								"type":1
+							},
+	                		type: "post",
+	               		 	dataType: "json",
+	              		 	url: baseUrl + "order/ordercheck/"+orderId,
+	              		  	success: function(data) {
+	              		      if(data.code == 200) {
+									alert("下单成功");
+									$('#myModal').modal('hide');
+									$("#sample_4  tr:not(:first)").html("");
+					                $("#sample_5  tr:not(:first)").html("");
+					                $("#sample_3  tr[id]").remove();
+					                $("#weddingTime").val("");
+                         	        $("#deliveryTime").val("");
+                         	        $("#customer").val("");
+                         	        $("#contact").val("");
+                         	        $("#address").val("");
+
+								} else {
+									alert(data.msg);
+								}
+	               		 },
+	               		 "error": function(resp) {
+								if(resp.status == 500) {
+									alert("服务器异常");
+								} else {
+									//location.href = "about.html";
+								}
+							}
+	            		});
+					
 		 }
 		 function createOrder(){
-                if(confirm("确定要下单吗？")) {
                      var size = $("#sample_3").find("tr").length;
                      if(size <=1) {
                      	alert("您还没有购买商品");
+                     	return;
                      }else {
 					     $("#createOrder").attr("disabled", true);
 					     var list = [];//数组
@@ -263,7 +413,11 @@ http://www.templatemo.com/tm-475-holiday
                          	var productNum = $("#sample_3 tr:eq('"+i+"')").find(".sy_num").val();
                          	var weddingTime = DateToUnix($("#weddingTime").val());
                          	var deliveryTime = DateToUnix($("#deliveryTime").val());
-                         	
+
+                         	var customer = $("#customer").val();
+                         	var contact = $("#contact").val();
+                         	var address = $("#address").val();
+
                          	if(isNaN(productNum)) {
                          		alert("数量输入框只能是数字");
                                 $("#createOrder").attr("disabled", false);
@@ -282,6 +436,22 @@ http://www.templatemo.com/tm-475-holiday
                          		$("#deliveryTime").focus();
                          		return;
                          	}
+                         	if(customer== undefined || customer =="") {
+                         		alert("收货人不能为空格");
+                         		$("#createOrder").attr("disabled", false);
+                         		$("#customer").focus();
+                         	}
+                         	if(contact == undefined || contact =="") {
+                         		alert("联系方式不能为空");
+                         		$("#createOrder").attr("disabled", false);
+                         		$("#contact").focus();
+                         	}
+                         	if(address == undefined || address == "") {
+                         		alert("地址不能为空");
+                         		$("#createOrder").attr("disabled", false);
+                         		$("#address").focus();
+
+                         	}
                          	
                                 list[i-1] = {"productId":parseInt(productId),"productNum":parseInt(productNum)};
                          	
@@ -298,13 +468,46 @@ http://www.templatemo.com/tm-475-holiday
 								"x-token": token,
 								"type":1
 							},
-							data: JSON.stringify({"orderDetailItems":list,"weddingTime":weddingTime,"deliveryTime":deliveryTime}),
+							data: JSON.stringify({"orderDetailItems":list,
+								"weddingTime":weddingTime,
+								"deliveryTime":deliveryTime,
+								"customer":customer,
+								"contact":contact,
+								"address":address
+							}),
 							success: function(data) {
 								if(data.code == 200) {
-									alert("下单成功");
-									$("#sample_3").find("tr[id]").remove();	
-									$("#weddingTime").val("");
-									$("#deliveryTime").val("");
+									var order = data.data.orders;
+									orderId = order.id;
+									$("#createOrder").attr("disabled", false);
+									$('#myModal').modal('show').css({"width":"auto"});
+					                $("#myModalLabel").html("订单号:" + order.orderNum);
+					                $("#sample_4  tr:not(:first)").html("");
+					                $("#sample_5  tr:not(:first)").html("");
+
+	                              
+
+	                                 var newRow = "<tr><td>"+order.orderNum+"</td>"
+	                                 +"<td>"+order.customer+"</td>"
+	                                 +"<td>"+order.contact+"</td>"
+	                                   +"<td>"+order.address+"</td>"
+	                                  +"<td>"+UnixToDate(order.weddingTime/1000,true,8)+"</td>"
+	                                  +"<td>"+UnixToDate(order.deliveryTime/1000,true,8)+"</td>"
+	                                  +"<td>"+order.shopperName+"</td>"
+	                                  +"<td>"+order.orderPrice+"</td></tr>";
+	                                 $("#sample_4").append(newRow);
+
+						            $.each(data.data.orderDetails, function(i, n) {
+		                 		    var tbBody = ""
+		                     	   	tbBody += "<tr><td>" + n.name + "</td>" 
+		                     	   	+ "<td>" + n.modelType + "</td>"
+		                     	   	+ "<td>" + n.colourType + "</td>" 
+		                     	   	+ "<td>" + n.content + "</td>" 
+		                     	   	+ "<td>" + n.price + "</td>"  
+		                     	   	+ "<td>" + n.productCount + "</td></tr>";
+		                      	    $("#sample_5").append(tbBody);
+		                   		    });
+									
 								} else {
 									alert(data.msg);
 								}
@@ -313,13 +516,13 @@ http://www.templatemo.com/tm-475-holiday
 								if(resp.status == 500) {
 									alert("服务器异常");
 								} else {
-									location.href = "about.html";
+									// location.href = "about.html";
 								}
 							}
 						});
 						$("#createOrder").attr("disabled", false);
 					 }
-                }
+                
 		 }
 
 		
@@ -400,7 +603,7 @@ http://www.templatemo.com/tm-475-holiday
 												if(resp.status == 500) {
 													alert("服务器异常");
 												} else {
-													 location.href = "about.html";
+													 // location.href = "about.html";
 												}
 											}
 										});
