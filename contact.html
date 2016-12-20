@@ -293,21 +293,21 @@ http://www.templatemo.com/tm-475-holiday
 										'aTargets': [6],
 										"mRender": function(data,
 											type, full) {
-											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+											return $.myTime.UnixToDate(full.delivery_time / 1000, true, 8);
 										}
 										},{
 										'bSortable': true,
 										'aTargets': [7],
 										"mRender": function(data,
 											type, full) {
-											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+											return $.myTime.UnixToDate(full.wedding_time / 1000, true, 8);
 										}
 										},{
 										'bSortable': true,
 										'aTargets': [9],
 										"mRender": function(data,
 											type, full) {
-											return $.myTime.UnixToDate(full.wedding_time / 1000, true);
+											return $.myTime.UnixToDate(full.order_time / 1000, true, 8);
 										}
 										},{
 										'bSortable': true,
