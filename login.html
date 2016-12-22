@@ -9,7 +9,6 @@
 Holiday Template
 http://www.templatemo.com/tm-475-holiday
 -->
-  <!-- <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'> -->
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
@@ -39,48 +38,15 @@ http://www.templatemo.com/tm-475-holiday
 	  				<nav class="tm-nav">
 						<ul>
 							<li><a href="index.html">首页</a></li>
-							<li><a href="tours.html">产品中心</a></li>
+							<li><a href="product.html">产品中心</a></li>
 							<li><a href="contact.html">我的订单</a></li>
-							<li><a href="about.html" class="active">登录</a></li>
+							<li><a href="login.html" class="active">登录</a></li>
 						</ul>
 					</nav>		
 	  			</div>				
   			</div>
   		</div>	  	
   	</div>
-	
-	<!-- Banner -->
-	<section class="tm-banner">
-		<!-- Flexslider -->
-		<div class="flexslider flexslider-banner">
-		  <ul class="slides">
-		    <li>
-			    <div class="tm-banner-inner">
-					<h1 class="tm-banner-title"><span class="tm-yellow-text">Tour</span> Packages</h1>
-					<p class="tm-banner-subtitle">For Your Vacations</p>
-					<a href="#more" class="tm-banner-link">Learn More</a>	
-				</div>
-		      <img src="img/banner-3.jpg" />
-		    </li>
-		    <li>
-			    <div class="tm-banner-inner">
-					<h1 class="tm-banner-title">Lorem <span class="tm-yellow-text">Ipsum</span> Dolor</h1>
-					<p class="tm-banner-subtitle">Wonderful Destinations</p>
-					<a href="#more" class="tm-banner-link">Learn More</a>	
-				</div>
-		      <img src="img/banner-2.jpg" />
-		    </li>
-		    <li>
-			    <div class="tm-banner-inner">
-					<h1 class="tm-banner-title">Proin <span class="tm-yellow-text">Gravida</span> Nibhvell</h1>
-					<p class="tm-banner-subtitle">Velit Auctor</p>
-					<a href="#more" class="tm-banner-link">Learn More</a>	
-				</div>
-		      <img src="img/banner-1.jpg" />
-		    </li>
-		  </ul>
-		</div>		
-	</section>
 	
 	<!-- white bg -->
 	<section class="tm-white-bg section-padding-bottom" id="more">
@@ -115,15 +81,14 @@ http://www.templatemo.com/tm-475-holiday
 		</div>		
 		</div>
 	</section>
-	<footer class="tm-black-bg">
-		<div class="container">
-			<div class="row">
-				<p class="tm-copyright-text">Copyright &copy; 2084 Your Company Name 
-                
-                | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+		<footer class="tm-black-bg">
+			<div class="container">
+				<div class="row">
+					<p class="tm-copyright-text">Copyright &copy; 2084 爱煦
+					</p>
+				</div>
 			</div>
-		</div>		
-	</footer>
+		</footer>
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      		<!-- jQuery -->
   	<script type="text/javascript" src="js/bootstrap.min.js"></script>					<!-- bootstrap js -->
   	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>			<!-- flexslider js -->
@@ -201,7 +166,7 @@ http://www.templatemo.com/tm-475-holiday
 					error: function(data) {
 						if(data.status == 401) {
 							//重新登录
-							location.href = "about.html";
+							location.href = "login.html";
 						} else {}
 					}
 				});

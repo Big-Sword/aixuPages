@@ -9,7 +9,6 @@
 Holiday Template
 http://www.templatemo.com/tm-475-holiday
 -->
-	<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">  
@@ -39,7 +38,7 @@ http://www.templatemo.com/tm-475-holiday
 					<nav class="tm-nav">
 						<ul>
 							<li><a href="index.html">首页</a></li>
-							<li><a href="tours.html">产品中心</a></li>
+							<li><a href="product.html">产品中心</a></li>
 							<li><a href="contact.html" class="active">我的订单</a></li>
 							<li>
 							<a href="#" id="loginhref" ><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
@@ -161,15 +160,14 @@ http://www.templatemo.com/tm-475-holiday
 			</div>			
 		</div>
 	</section>
-	<footer class="tm-black-bg">
-		<div class="container">
-			<div class="row">
-				<p class="tm-copyright-text">Copyright &copy; 2084 Your Company Name 
-                
-                | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+		<footer class="tm-black-bg">
+			<div class="container">
+				<div class="row">
+					<p class="tm-copyright-text">Copyright &copy; 2084 爱煦
+					</p>
+				</div>
 			</div>
-		</div>		
-	</footer>
+		</footer>
 	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      		<!-- jQuery -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>					<!-- bootstrap js -->
 	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>			<!-- flexslider js -->
@@ -259,7 +257,7 @@ http://www.templatemo.com/tm-475-holiday
 												if(resp.status == 500) {
 													alert("服务器异常");
 												} else {
-													location.href = "about.html";
+													location.href = "login.html";
 													// logout();
 												}
 											}
@@ -431,7 +429,7 @@ http://www.templatemo.com/tm-475-holiday
 			console.log(username)
 			if(token == undefined || token == "null") {
 					// location.href = "login.html";
-					$("#loginhref").attr("href", "about.html"); //这里设置链接地址
+					$("#loginhref").attr("href", "login.html"); //这里设置链接地址
 		  			$("#loginhref").html("登录");  //这里设置显示的内容
 
 		  			$("#loginlogout").hide();

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>爱 煦 - 产品中心</title>
+		<!--
+Holiday Template
+http://www.templatemo.com/tm-475-holiday
+-->
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<link href="css/flexslider.css" rel="stylesheet">
+		<link href="css/templatemo-style.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	</head>
+
+	<body class="tm-gray-bg">
+		<!-- Header -->
+		<div class="tm-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-4 col-sm-3 tm-site-name-container">
+						<a href="#" class="tm-site-name">爱 煦</a>
+					</div>
+					<div class="col-lg-6 col-md-8 col-sm-9">
+						<div class="mobile-menu-icon">
+							<i class="fa fa-bars"></i>
+						</div>
+						<nav class="tm-nav">
+							<ul>
+								<li>
+									<a href="index.html">首页</a>
+								</li>
+								<!-- <li><a href="about.html">About</a></li> -->
+								<li>
+									<a href="product.html" class="active">产品中心</a>
+								</li>
+								<li>
+									<a href="contact.html">我的订单</a>
+								</li>
+								<li>
+									<a href="#" id="loginhref"><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
+									<ul class="dropdown-menu" id="loginlogout">
+										<li>
+											<a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- white bg -->
+		<section class="tm-white-bg section-padding-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="tm-section-header section-margin-top">
+						<div class="col-lg-4 col-md-3 col-sm-3">
+							<hr>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6">
+							<h2 class="tm-section-title">我们的产品</h2></div>
+						<div class="col-lg-4 col-md-3 col-sm-3">
+							<hr>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="productList">
+
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<p class="home-description">欢迎订购我们的产品,希望我们的产品让您的婚礼更加完美.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="tm-black-bg">
+			<div class="container">
+				<div class="row">
+					<p class="tm-copyright-text">Copyright &copy; 2084 爱煦
+					</p>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+		<!-- jQuery -->
+		<script type="text/javascript" src="js/moment.js"></script>
+		<!-- moment.js -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+		<!-- bootstrap date time picker js, http://eonasdan.github.io/bootstrap-datetimepicker/ -->
+		<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+		<script type="text/javascript" src="js/templatemo-script.js"></script>
+		<!-- Templatemo Script -->
+		<script>
+			var baseUrl = "http://localhost:8080/";
+			var storage = window.localStorage;
+			var token = storage.shopperToken;
+			var username = storage.shopperName;
+			if(token == undefined || token == "null") {
+				// location.href = "login.html";
+				$("#loginhref").attr("href", "login.html"); //这里设置链接地址
+				$("#loginhref").html("登录"); //这里设置显示的内容
+				$("#loginlogout").hide();
+			} else {
+				//class="dropdown-toggle" data-toggle="dropdown"
+				$("#loginhref").attr("class", "dropdown-toggle"); //这里设置链接
+				$("#loginhref").attr("data-toggle", "dropdown"); //这里设置链接
+				$("#loginName").html(storage.shopperName);
+			}
+			// HTML document is loaded. DOM is ready.
+			$(function() {
+
+				$('#hotelCarTabs a').click(function(e) {
+					e.preventDefault()
+					$(this).tab('show')
+				})
+
+				$('.date').datetimepicker({
+					format: 'MM/DD/YYYY'
+				});
+				$('.date-time').datetimepicker();
+
+				// https://css-tricks.com/snippets/jquery/smooth-scrolling/
+				$('a[href*=#]:not([href=#])').click(function() {
+					if(location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+						if(target.length) {
+							$('html,body').animate({
+								scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
+			});
+
+			// Load Flexslider when everything is loaded.
+			$(window).load(function() {
+				$('.flexslider').flexslider({
+					controlNav: false
+				});
+			});
+			$(function() {
+				$.ajax({
+					"dataType": 'json',
+					"type": "get",
+					"url": baseUrl + "product/common/findAll",
+					contentType: "application/json",
+					async: false,
+					headers: {
+						"x-token": token,
+						"type": 1
+					},
+					"data": {},
+					"success": function(data) {
+						if(data.code == 200) {
+							var html = "<div class=\"col-lg-3 col-md-3 col-sm-6 col-xs-6 col-xxs-12\"><div class=\"tm-tours-box-2\">";
+							$.each(data.data, function(index, item) {
+								var img = "<img src='/aixuManager/productImg/" + item.picUrl.split("~")[0] + "' alt='image' class='img-responsive'><div class='tm-tours-box-2-info'><h3 class='margin-bottom-15'>" + item.name + "</h3><p>单价 " + item.price + "元</p></div><a href='#' onclick='buy(" + item.id + ")' class='tm-tours-box-2-link'>订购</a></div></div>";
+								$("#productList").append(html + img);
+							});
+						} else {
+							alert(data.msg);
+						}
+					},
+					"error": function(resp) {
+						if(resp.status == 500) {
+							alert("服务器异常");
+						}
+					}
+				});
+			});
+
+			function buy(id) {
+				if(token == undefined || token == "null") {
+					alert("您还未登录");
+				} else {
+					storage.productId = id;
+					location.href = "detail.html";
+				}
+			}
+
+			function logout() {
+				storage.removeItem("shopperToken");
+				storage.removeItem("shopperName");
+				location.href = "index.html";
+			}
+		</script>
+	</body>
+
+</html>
