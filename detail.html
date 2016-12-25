@@ -3,10 +3,9 @@
 
 	<head>
 		<title>爱 煦 - 产品明细</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="Watches Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 		<script type="application/x-javascript">
 			addEventListener("load", function() {
 				setTimeout(hideURLbar, 0);
@@ -22,7 +21,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
 		<!-- Custom Theme files -->
 		<!--webfont-->
-		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 		<!-- start menu -->
 		<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -30,6 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 		<link href="css/flexslider.css" rel="stylesheet">
 		<link href="css/templatemo-style.css" rel="stylesheet">
+
 		<script type="text/javascript" src="js/megamenu.js"></script>
 		<script>
 			$(document).ready(function() {
@@ -70,14 +70,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</li>
 								<!-- <li><a href="about.html">About</a></li> -->
 								<li>
-									<a href="tours.html" class="active">产品中心</a>
+									<a href="product.html" class="active">产品中心</a>
 								</li>
 								<li>
-									<a href="contact.html">我的订单</a>
+									<a href="about.html">关于我们</a>
 								</li>
 								<li>
 									<a href="#" id="loginhref"><span class="glyphicon glyphicon-user"></span> <span id="loginName"></span> <span class="caret"></span></a>
-									<ul class="dropdown-menu" id="loginlogout">
+									<ul class="dropdown-menu" id="loginlogout" style="left: auto;width: 102px;">
+										<li>
+											<a href="cart.html"><span class="glyphicon glyphicon-shopping-cart">我的购物车</span> </a>
+										</li>
+										<li>
+											<a href="order.html"><span class="glyphicon glyphicon-ok-circle"></span> 我的订单</a>
+										</li>
 										<li>
 											<a href="#" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> 登出</a>
 										</li>
@@ -96,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="labout span_1_of_a1">
 							<div class="flexslider">
 								<ul class="slides" id="picUrls">
-								
+
 								</ul>
 							</div>
 							<div class="clearfix"></div>
@@ -141,54 +147,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<div class="clearfix"></div>
 							</div>
-							<a href="#" class="btn btn-primary btn-normal btn-inline btn_form button item_add item_1" target="_self">添加至购物车</a>
+							<a href="#" onclick="addCart();" class="btn btn-primary btn-normal btn-inline btn_form button item_add item_1">添加至购物车</a>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
 
 				</div>
 				<div class="col-md-3 tabs">
-					<h3 class="m_1">Related Products</h3>
-					<ul class="product">
-						<li class="product_img"><img src="images/m5.jpg" class="img-responsive" alt="" /></li>
-						<li class="product_desc">
-							<h4><a href="#">quod mazim</a></h4>
-							<p class="single_price">$66.30</p>
-							<a href="#" class="link-cart">Add to Wishlist</a>
-							<a href="#" class="link-cart">Add to Cart</a>
-						</li>
-						<div class="clearfix"> </div>
-					</ul>
-					<ul class="product">
-						<li class="product_img"><img src="images/m6.jpg" class="img-responsive" alt="" /></li>
-						<li class="product_desc">
-							<h4><a href="#">quod mazim</a></h4>
-							<p class="single_price">$66.30</p>
-							<a href="#" class="link-cart">Add to Wishlist</a>
-							<a href="#" class="link-cart">Add to Cart</a>
-						</li>
-						<div class="clearfix"> </div>
-					</ul>
-					<ul class="product">
-						<li class="product_img"><img src="images/m2.jpg" class="img-responsive" alt="" /></li>
-						<li class="product_desc">
-							<h4><a href="#">quod mazim</a></h4>
-							<p class="single_price">$66.30</p>
-							<a href="#" class="link-cart">Add to Wishlist</a>
-							<a href="#" class="link-cart">Add to Cart</a>
-						</li>
-						<div class="clearfix"> </div>
-					</ul>
-					<ul class="product">
-						<li class="product_img"><img src="images/m3.jpg" class="img-responsive" alt="" /></li>
-						<li class="product_desc">
-							<h4><a href="#">quod mazim</a></h4>
-							<p class="single_price">$66.30</p>
-							<a href="#" class="link-cart">Add to Wishlist</a>
-							<a href="#" class="link-cart">Add to Cart</a>
-						</li>
-						<div class="clearfix"> </div>
-					</ul>
+					<h3 class="m_1">相关产品</h3>
+					<div id="xgcp">
+					</div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -204,6 +172,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- FlexSlider -->
 		<script defer src="js/jquery.flexslider.js"></script>
 		<script defer src="js2/bigDecimal.js"></script>
+
+		<script type="text/javascript" src="js/moment.js"></script>
+		<!-- moment.js -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+		<!-- bootstrap date time picker js, http://eonasdan.github.io/bootstrap-datetimepicker/ -->
+		<script type="text/javascript" src="js/templatemo-script.js"></script>
+
 		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
 		<script>
 			var baseUrl = "http://localhost:8080/";
@@ -229,7 +206,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					"type": "get",
 					"url": baseUrl + "product/get/" + productId,
 					contentType: "application/json",
-					async:false,
+					async: false,
 					headers: {
 						"x-token": token,
 						"type": 1
@@ -244,13 +221,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							$("#ccc").html("总价: " + data.data.price + "元");
 							$("#rPrice").val(data.data.price);
 							$("#price").html("单价: " + data.data.price + "元");
-							var d=data.data.picUrl.split("~");
-							$.each(d, function(i,r) {
-								var html="<li data-thumb='/aixuManager/productImg/"+r+"'><img src='/aixuManager/productImg/"+r+"' /></li>";
+							var d = data.data.picUrl.split("~");
+							$.each(d, function(i, r) {
+								var html = "<li data-thumb='/aixuManager/productImg/" + r + "'><img src='/aixuManager/productImg/" + r + "' /></li>";
 								$("#picUrls").append(html);
 							});
-							
-										
+
 						} else {
 							alert(data.msg);
 						}
@@ -265,12 +241,87 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				});
 			});
 
+			$(function() {
+				$.ajax({
+					"dataType": 'json',
+					"type": "get",
+					"url": baseUrl + "product/common/recommend/" + productId + "/4",
+					contentType: "application/json",
+					async: false,
+					headers: {
+						"x-token": token,
+						"type": 1
+					},
+					"data": {},
+					"success": function(data) {
+						if(data.code == 200) {
+
+							$.each(data.data, function(index, item) {
+
+								var html = "<ul class='product'><li class='product_img'><img src='/aixuManager/productImg/" + item.picUrl.split("~")[0] + "' class='img-responsive' alt='' /></li><li class='product_desc'><h4><a href='#'>" + item.name + "</a></h4><p class='single_price'>单价: " + item.price + "元</p><a href='#' onclick='addCart2(" + item.id + ");' class='link-cart'>添加至购物车</a></li><div class='clearfix'> </div></ul>";
+
+								$("#xgcp").append(html);
+							});
+						}
+					},
+					"error": function(resp) {}
+				});
+			});
+
 			function logout() {
 				storage.removeItem("shopperToken");
 				storage.removeItem("shopperName");
 				location.href = "index.html";
 			}
 
+			function addCart() {
+				var sl = $('#shuliang').val();
+				$.ajax({
+					"dataType": 'json',
+					"type": "post",
+					"url": baseUrl + "order/cart/" + productId + "/" + sl,
+					contentType: "application/json",
+					headers: {
+						"x-token": token,
+						"type": 1
+					},
+					"data": {},
+					"success": function(data) {
+						if(data.code == 200) {
+							alert("添加成功");
+						}
+					},
+					"error": function(data) {
+						if(data.status == 500) {
+							alert("服务器异常");
+						}
+					}
+				});
+			}
+
+			function addCart2(id) {
+				$.ajax({
+					"dataType": 'json',
+					"type": "post",
+					"url": baseUrl + "order/cart/" + id + "/1",
+					contentType: "application/json",
+					headers: {
+						"x-token": token,
+						"type": 1
+					},
+					"data": {},
+					"success": function(data) {
+						if(data.code == 200) {
+							alert("添加成功");
+						}
+					},
+					"error": function(data) {
+						if(data.status == 500) {
+							alert("服务器异常");
+						}
+					}
+				});
+			}
 			// Can also be used with $(document).ready()
 			$(window).load(function() {
 				$('.flexslider').flexslider({
@@ -292,7 +343,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			function abdce() {
 				var sl = $('#shuliang').val();
 				var rPrice = $('#rPrice').val();
-				if(sl > 0) {
+				if(sl > 1) {
 					sl = parseInt(sl) - 1;
 				}
 				$('#shuliang').val(sl);
@@ -303,10 +354,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			function abc() {
 				var sl = $('#shuliang').val();
 				var rPrice = $('#rPrice').val();
-				if(sl > 0) {
+				if(sl > 1) {
 					sl = parseInt(sl);
 				} else {
-					sl = 0
+					sl = 1
 				}
 				$('#shuliang').val(sl);
 				var p = new BigDecimal("" + sl).multiply(new BigDecimal("" + rPrice));
