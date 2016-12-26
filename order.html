@@ -77,27 +77,6 @@ http://www.templatemo.com/tm-475-holiday
 						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 					</div>
 					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<table id="sample_4" class="table table-striped table-bordered" cellspacing="0" width="100%">
-											<thead>
-												<tr>
-													<th>订单号</th>
-													<th>收货人</th>
-													<th>联系方式</th>
-													<th>收货地址</th>
-													<th>婚礼时间</th>
-													<th>送货时间</th>
-													<th>购买者</th>
-													<th>商品总价</th>
-												</tr>
-											</thead>
-										</table>
-									</div>
-								</div>
-							</div>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
@@ -121,8 +100,7 @@ http://www.templatemo.com/tm-475-holiday
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">取消下单</button>
-							<button type="button" class="btn btn-default" onclick="createConfirmOrder()">确定下单</button>
+							<button type="button" data-dismiss="modal" class="btn btn-primary btn-md pull-right" >确定</button>
 						</div>
 					</div>
 				</div>
@@ -241,8 +219,8 @@ http://www.templatemo.com/tm-475-holiday
 		<script type="text/javascript" src="js/templatemo-script.js"></script>
 		<!-- Templatemo Script -->
 		<script>
-			var baseUrl = "http://localhost:8080/";
-			// var baseUrl = "http://139.196.12.123:8080/";
+			//var baseUrl = "http://localhost:8080/";
+			 var baseUrl = "http://139.196.12.123:8080/";
 			var storage = window.localStorage;
 			var token = storage.shopperToken;
 			var username = storage.shopperName;
@@ -447,7 +425,7 @@ http://www.templatemo.com/tm-475-holiday
 			function showOrderDetail(id, order_num) {
 				$('#myModal').modal('show');
 				$("#myModalLabel").html("订单号:" + order_num);
-				$("#sample_3  tr:not(:first)").html("");
+				$("#sample_5  tr:not(:first)").html("");
 
 				$.ajax({
 					contentType: "application/json",
@@ -456,6 +434,7 @@ http://www.templatemo.com/tm-475-holiday
 						"type": 1
 					},
 					type: "post",
+					async:false,
 					dataType: "json",
 					url: baseUrl + "order/orderdetail/" + id,
 					success: function(json) {
@@ -469,7 +448,7 @@ http://www.templatemo.com/tm-475-holiday
 									"<td>" + n.content + "</td>" +
 									"<td>" + n.price + "</td>" +
 									"<td>" + n.productCount + "</td></tr>";
-								$("#sample_3").append(tbBody);
+								$("#sample_5").append(tbBody);
 							});
 						} else {
 							// alert(json.msg);
